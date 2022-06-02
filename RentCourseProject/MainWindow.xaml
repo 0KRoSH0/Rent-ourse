@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RentCourseProject"
         mc:Ignorable="d"
         Title="Крисперс"
+        Icon="/Assets/Img/Logo.png"
         Height="850" Width="1400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,13 +22,16 @@
         </Grid.Background>
         <Border Width="Auto" Height="68" VerticalAlignment="Top" HorizontalAlignment="Center" Background="Transparent" x:Name="ToolBar" MouseLeftButtonDown="ToolBarMouseLeftButtonDown" Grid.Row="0">
             <StackPanel>
-                <TextBlock Text="КРИСПЕРС" Style="{StaticResource TextCompany}" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                <Button Content="Назад" x:Name="BackButton" Margin="-1200,-25,0,0" Style="{StaticResource BackButton}" Click="BackButtonClick" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Image Source="/Assets/Img/Logo.png" Width="40" Margin="0,-7,0,0"/>
+                    <TextBlock Text="КРИСПЕРС" Style="{StaticResource TextCompany}" TextAlignment="Right" Width="100"/>
+                </StackPanel>
+                <Button Content="Назад" x:Name="BackButton" Margin="-1200,-42,0,0" Style="{StaticResource BackButton}" Click="BackButtonClick" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Image HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="CrossButton" MouseLeftButtonDown="CrossButtonMouseLeftButtonDown"
                        Style="{StaticResource CrossButtonHover}"/>
                 <Image HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="MinusButton" MouseLeftButtonDown="MinusButtonMouseLeftButtonDown"
                        Style="{StaticResource MinusButtonHover}"/>
-                <Rectangle Width="1400" Height="2" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"></Rectangle>
+                <Rectangle Width="1400" Height="2" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,13,0,0"></Rectangle>
             </StackPanel>
         </Border>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrameContentRendered" Grid.Row="1"/>
