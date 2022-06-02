@@ -8,6 +8,9 @@ namespace RentCourseTests
     [TestClass]
     public class StringCheckTests
     {
+        /// <summary>
+        /// 1. Пустая строка
+        /// </summary>
         [TestMethod]
         public void String_Empty_Returned()
         {
@@ -18,7 +21,10 @@ namespace RentCourseTests
             //Assert
             Assert.AreEqual(nullString, expected);
         }
-        
+
+        /// <summary>
+        /// 2. Корректность логина 
+        /// </summary>
         [TestMethod]
         public void LoginCorrect_Correct_Returned()
         {
@@ -31,7 +37,10 @@ namespace RentCourseTests
             //Assert
             Assert.IsTrue(success);
         }
-        
+
+        /// <summary>
+        /// 3. Некорректность логина 
+        /// </summary>
         [TestMethod]
         public void LoginCorrect_NoCorrect_Returned()
         {
@@ -44,9 +53,12 @@ namespace RentCourseTests
             //Assert
             Assert.IsFalse(success);
         }
-        
+
+        /// <summary>
+        /// 4. Корректность пароля 
+        /// </summary>
         [TestMethod]
-        public void Password_Correct_Returned()
+        public void PasswordCorrect_Correct_Returned()
         {
             //Arrange
             string password = "Vasya334";
@@ -57,9 +69,12 @@ namespace RentCourseTests
             //Assert
             Assert.IsTrue(success);
         }
-        
+
+        /// <summary>
+        /// 5. Некорректность пароля 
+        /// </summary>
         [TestMethod]
-        public void Password_NoCorrect_Returned()
+        public void PasswordCorrect_NoCorrect_Returned()
         {
             //Arrange
             string password = "vasya33";
@@ -70,7 +85,10 @@ namespace RentCourseTests
             //Assert
             Assert.IsFalse(success);
         }
-        
+
+        /// <summary>
+        /// 6. Корректность почты
+        /// </summary>
         [TestMethod]
         public void EmailCorrect_Correct_Returned()
         {
@@ -83,9 +101,12 @@ namespace RentCourseTests
             //Assert
             Assert.IsTrue(success);
         }
-        
+
+        /// <summary>
+        /// 7. Некорректность почты
+        /// </summary>
         [TestMethod]
-        public void Email_NoCorrect_Returned()
+        public void EmailCorrect_NoCorrect_Returned()
         {
             //Arrange
             string email = "Mihail2@g_mAiL.com";
@@ -96,12 +117,15 @@ namespace RentCourseTests
             //Assert
             Assert.IsFalse(success);
         }
-        
+
+        /// <summary>
+        /// 8. Корректность телефона
+        /// </summary>
         [TestMethod]
-        public void Phone_Correct_Returned()
+        public void PhoneCorrect_Correct_Returned()
         {
             //Arrange
-            string phone = "89012109958";
+            string phone = "89911129358";
             string pattern = @"([0-9]{11})$";
             //Act
             StringCheckLibrary obj = new StringCheckLibrary();
@@ -109,9 +133,12 @@ namespace RentCourseTests
             //Assert
             Assert.IsTrue(success);
         }
-        
+
+        /// <summary>
+        /// 9. Некорректность телефона
+        /// </summary>
         [TestMethod]
-        public void Phone_NoCorrect_Returned()
+        public void PhoneCorrect_NoCorrect_Returned()
         {
             //Arrange
             string phone = "8x012e10t958";
