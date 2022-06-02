@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8ffbeda574d4c4686519c40cb2cca58" Name="Diagram1">
+        <EntityTypeShape EntityType="RentFlatModel.Flat" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="RentFlatModel.House" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="RentFlatModel.Invoicing" Width="1.5" PointX="7.5" PointY="6.375" />
+        <EntityTypeShape EntityType="RentFlatModel.Month" Width="1.5" PointX="5.25" PointY="4.75" />
+        <EntityTypeShape EntityType="RentFlatModel.PaymentHistory" Width="1.5" PointX="9.75" PointY="6.5" />
+        <EntityTypeShape EntityType="RentFlatModel.Regions" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="RentFlatModel.Role" Width="1.5" PointX="5.25" PointY="17.75" />
+        <EntityTypeShape EntityType="RentFlatModel.Services" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="RentFlatModel.ServicesRegion" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="RentFlatModel.Status" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="RentFlatModel.Users" Width="1.5" PointX="7.5" PointY="11.375" />
+        <EntityTypeShape EntityType="RentFlatModel.Year" Width="1.5" PointX="5.25" PointY="12.25" />
+        <AssociationConnector Association="RentFlatModel.FK_Flat_House" />
+        <AssociationConnector Association="RentFlatModel.FK_Invoicing_Flat" />
+        <AssociationConnector Association="RentFlatModel.FK_PaymentHistory_Flat" />
+        <AssociationConnector Association="RentFlatModel.FK_Users_Flat" />
+        <AssociationConnector Association="RentFlatModel.FK_House_Regions" />
+        <AssociationConnector Association="RentFlatModel.FK_Invoicing_Month" />
+        <AssociationConnector Association="RentFlatModel.FK_Invoicing_ServicesRegion" />
+        <AssociationConnector Association="RentFlatModel.FK_Invoicing_Status" />
+        <AssociationConnector Association="RentFlatModel.FK_Invoicing_Year" />
+        <AssociationConnector Association="RentFlatModel.FK_PaymentHistory_Invoicing" />
+        <AssociationConnector Association="RentFlatModel.FK_PaymentHistory_Month" />
+        <AssociationConnector Association="RentFlatModel.FK_PaymentHistory_ServicesRegion" />
+        <AssociationConnector Association="RentFlatModel.FK_PaymentHistory_Year" />
+        <AssociationConnector Association="RentFlatModel.FK_ServicesRegion_Regions" />
+        <AssociationConnector Association="RentFlatModel.FK_User_Role" />
+        <AssociationConnector Association="RentFlatModel.FK_ServicesRegion_Services" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

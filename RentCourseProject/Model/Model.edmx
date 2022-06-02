@@ -1,0 +1,943 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище RentFlatModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Flat">
+          <Key>
+            <PropertyRef Name="IdFlat" />
+          </Key>
+          <Property Name="IdFlat" Type="int" Nullable="false" />
+          <Property Name="NumberFlat" Type="int" Nullable="false" />
+          <Property Name="Residents" Type="int" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Floor" Type="int" Nullable="false" />
+          <Property Name="IdHouse" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="IdHouse" />
+          </Key>
+          <Property Name="IdHouse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Floor" Type="int" Nullable="false" />
+          <Property Name="AreaFlats" Type="int" Nullable="false" />
+          <Property Name="IdRegion" Type="int" />
+        </EntityType>
+        <EntityType Name="Invoicing">
+          <Key>
+            <PropertyRef Name="IdInvoicing" />
+          </Key>
+          <Property Name="IdInvoicing" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFlat" Type="int" />
+          <Property Name="IdServicesRegion" Type="int" />
+          <Property Name="IdStatus" Type="int" />
+          <Property Name="IdMonth" Type="int" />
+          <Property Name="IdYear" Type="int" />
+        </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="IdMonth" />
+          </Key>
+          <Property Name="IdMonth" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentHistory">
+          <Key>
+            <PropertyRef Name="IdPaymentHistory" />
+          </Key>
+          <Property Name="IdPaymentHistory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFlat" Type="int" Nullable="false" />
+          <Property Name="IdServicesRegion" Type="int" Nullable="false" />
+          <Property Name="IdInvoicing" Type="int" Nullable="false" />
+          <Property Name="IdMonth" Type="int" />
+          <Property Name="IdYear" Type="int" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="IdRegions" />
+          </Key>
+          <Property Name="IdRegions" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Warmly" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="IdServices" />
+          </Key>
+          <Property Name="IdServices" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServicesRegion">
+          <Key>
+            <PropertyRef Name="IdServicesRegion" />
+          </Key>
+          <Property Name="IdServicesRegion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdServices" Type="int" Nullable="false" />
+          <Property Name="IdRegions" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdFlat" Type="int" />
+          <Property Name="IdRole" Type="int" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="IdYear" />
+          </Key>
+          <Property Name="IdYear" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumberYear" Type="int" />
+        </EntityType>
+        <Association Name="FK_Flat_House">
+          <End Role="House" Type="Self.House" Multiplicity="1" />
+          <End Role="Flat" Type="Self.Flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="IdHouse" />
+            </Principal>
+            <Dependent Role="Flat">
+              <PropertyRef Name="IdHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="0..1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="IdRegions" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Flat">
+          <End Role="Flat" Type="Self.Flat" Multiplicity="0..1" />
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Month">
+          <End Role="Month" Type="Self.Month" Multiplicity="0..1" />
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="IdMonth" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_ServicesRegion">
+          <End Role="ServicesRegion" Type="Self.ServicesRegion" Multiplicity="0..1" />
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicesRegion">
+              <PropertyRef Name="IdServicesRegion" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdServicesRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="0..1" />
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Flat">
+          <End Role="Flat" Type="Self.Flat" Multiplicity="1" />
+          <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Invoicing">
+          <End Role="Invoicing" Type="Self.Invoicing" Multiplicity="1" />
+          <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoicing">
+              <PropertyRef Name="IdInvoicing" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdInvoicing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Month">
+          <End Role="Month" Type="Self.Month" Multiplicity="0..1" />
+          <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="IdMonth" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_ServicesRegion">
+          <End Role="ServicesRegion" Type="Self.ServicesRegion" Multiplicity="1" />
+          <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicesRegion">
+              <PropertyRef Name="IdServicesRegion" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdServicesRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="0..1" />
+          <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicesRegion_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="ServicesRegion" Type="Self.ServicesRegion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="IdRegions" />
+            </Principal>
+            <Dependent Role="ServicesRegion">
+              <PropertyRef Name="IdRegions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicesRegion_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="ServicesRegion" Type="Self.ServicesRegion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="IdServices" />
+            </Principal>
+            <Dependent Role="ServicesRegion">
+              <PropertyRef Name="IdServices" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Flat">
+          <End Role="Flat" Type="Self.Flat" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RentFlatModelContainer">
+          <EntitySet Name="Flat" EntityType="Self.Flat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoicing" EntityType="Self.Invoicing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentHistory" EntityType="Self.PaymentHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServicesRegion" EntityType="Self.ServicesRegion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Flat_House" Association="Self.FK_Flat_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="Flat" EntitySet="Flat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Regions" Association="Self.FK_House_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Flat" Association="Self.FK_Invoicing_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Month" Association="Self.FK_Invoicing_Month">
+            <End Role="Month" EntitySet="Month" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_ServicesRegion" Association="Self.FK_Invoicing_ServicesRegion">
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Status" Association="Self.FK_Invoicing_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Year" Association="Self.FK_Invoicing_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Flat" Association="Self.FK_PaymentHistory_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Invoicing" Association="Self.FK_PaymentHistory_Invoicing">
+            <End Role="Invoicing" EntitySet="Invoicing" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Month" Association="Self.FK_PaymentHistory_Month">
+            <End Role="Month" EntitySet="Month" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_ServicesRegion" Association="Self.FK_PaymentHistory_ServicesRegion">
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Year" Association="Self.FK_PaymentHistory_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicesRegion_Regions" Association="Self.FK_ServicesRegion_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicesRegion_Services" Association="Self.FK_ServicesRegion_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Flat" Association="Self.FK_Users_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentFlatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RentFlatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Flat" EntityType="RentFlatModel.Flat" />
+          <EntitySet Name="House" EntityType="RentFlatModel.House" />
+          <EntitySet Name="Invoicing" EntityType="RentFlatModel.Invoicing" />
+          <EntitySet Name="Month" EntityType="RentFlatModel.Month" />
+          <EntitySet Name="PaymentHistory" EntityType="RentFlatModel.PaymentHistory" />
+          <EntitySet Name="Regions" EntityType="RentFlatModel.Regions" />
+          <EntitySet Name="Role" EntityType="RentFlatModel.Role" />
+          <EntitySet Name="Services" EntityType="RentFlatModel.Services" />
+          <EntitySet Name="ServicesRegion" EntityType="RentFlatModel.ServicesRegion" />
+          <EntitySet Name="Status" EntityType="RentFlatModel.Status" />
+          <EntitySet Name="Users" EntityType="RentFlatModel.Users" />
+          <EntitySet Name="Year" EntityType="RentFlatModel.Year" />
+          <AssociationSet Name="FK_Flat_House" Association="RentFlatModel.FK_Flat_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="Flat" EntitySet="Flat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Flat" Association="RentFlatModel.FK_Invoicing_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Flat" Association="RentFlatModel.FK_PaymentHistory_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Flat" Association="RentFlatModel.FK_Users_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Regions" Association="RentFlatModel.FK_House_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Month" Association="RentFlatModel.FK_Invoicing_Month">
+            <End Role="Month" EntitySet="Month" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_ServicesRegion" Association="RentFlatModel.FK_Invoicing_ServicesRegion">
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Status" Association="RentFlatModel.FK_Invoicing_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoicing_Year" Association="RentFlatModel.FK_Invoicing_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Invoicing" EntitySet="Invoicing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Invoicing" Association="RentFlatModel.FK_PaymentHistory_Invoicing">
+            <End Role="Invoicing" EntitySet="Invoicing" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Month" Association="RentFlatModel.FK_PaymentHistory_Month">
+            <End Role="Month" EntitySet="Month" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_ServicesRegion" Association="RentFlatModel.FK_PaymentHistory_ServicesRegion">
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_Year" Association="RentFlatModel.FK_PaymentHistory_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicesRegion_Regions" Association="RentFlatModel.FK_ServicesRegion_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="RentFlatModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicesRegion_Services" Association="RentFlatModel.FK_ServicesRegion_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ServicesRegion" EntitySet="ServicesRegion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Flat">
+          <Key>
+            <PropertyRef Name="IdFlat" />
+          </Key>
+          <Property Name="IdFlat" Type="Int32" Nullable="false" />
+          <Property Name="NumberFlat" Type="Int32" Nullable="false" />
+          <Property Name="Residents" Type="Int32" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Floor" Type="Int32" Nullable="false" />
+          <Property Name="IdHouse" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="House" Relationship="RentFlatModel.FK_Flat_House" FromRole="Flat" ToRole="House" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_Invoicing_Flat" FromRole="Flat" ToRole="Invoicing" />
+          <NavigationProperty Name="PaymentHistory" Relationship="RentFlatModel.FK_PaymentHistory_Flat" FromRole="Flat" ToRole="PaymentHistory" />
+          <NavigationProperty Name="Users" Relationship="RentFlatModel.FK_Users_Flat" FromRole="Flat" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="IdHouse" />
+          </Key>
+          <Property Name="IdHouse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Floor" Type="Int32" Nullable="false" />
+          <Property Name="AreaFlats" Type="Int32" Nullable="false" />
+          <Property Name="IdRegion" Type="Int32" />
+          <NavigationProperty Name="Flat" Relationship="RentFlatModel.FK_Flat_House" FromRole="House" ToRole="Flat" />
+          <NavigationProperty Name="Regions" Relationship="RentFlatModel.FK_House_Regions" FromRole="House" ToRole="Regions" />
+        </EntityType>
+        <EntityType Name="Invoicing">
+          <Key>
+            <PropertyRef Name="IdInvoicing" />
+          </Key>
+          <Property Name="IdInvoicing" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFlat" Type="Int32" />
+          <Property Name="IdServicesRegion" Type="Int32" />
+          <Property Name="IdStatus" Type="Int32" />
+          <Property Name="IdMonth" Type="Int32" />
+          <Property Name="IdYear" Type="Int32" />
+          <NavigationProperty Name="Flat" Relationship="RentFlatModel.FK_Invoicing_Flat" FromRole="Invoicing" ToRole="Flat" />
+          <NavigationProperty Name="Month" Relationship="RentFlatModel.FK_Invoicing_Month" FromRole="Invoicing" ToRole="Month" />
+          <NavigationProperty Name="ServicesRegion" Relationship="RentFlatModel.FK_Invoicing_ServicesRegion" FromRole="Invoicing" ToRole="ServicesRegion" />
+          <NavigationProperty Name="Status" Relationship="RentFlatModel.FK_Invoicing_Status" FromRole="Invoicing" ToRole="Status" />
+          <NavigationProperty Name="Year" Relationship="RentFlatModel.FK_Invoicing_Year" FromRole="Invoicing" ToRole="Year" />
+          <NavigationProperty Name="PaymentHistory" Relationship="RentFlatModel.FK_PaymentHistory_Invoicing" FromRole="Invoicing" ToRole="PaymentHistory" />
+        </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="IdMonth" />
+          </Key>
+          <Property Name="IdMonth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_Invoicing_Month" FromRole="Month" ToRole="Invoicing" />
+          <NavigationProperty Name="PaymentHistory" Relationship="RentFlatModel.FK_PaymentHistory_Month" FromRole="Month" ToRole="PaymentHistory" />
+        </EntityType>
+        <EntityType Name="PaymentHistory">
+          <Key>
+            <PropertyRef Name="IdPaymentHistory" />
+          </Key>
+          <Property Name="IdPaymentHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFlat" Type="Int32" Nullable="false" />
+          <Property Name="IdServicesRegion" Type="Int32" Nullable="false" />
+          <Property Name="IdInvoicing" Type="Int32" Nullable="false" />
+          <Property Name="IdMonth" Type="Int32" />
+          <Property Name="IdYear" Type="Int32" />
+          <NavigationProperty Name="Flat" Relationship="RentFlatModel.FK_PaymentHistory_Flat" FromRole="PaymentHistory" ToRole="Flat" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_PaymentHistory_Invoicing" FromRole="PaymentHistory" ToRole="Invoicing" />
+          <NavigationProperty Name="Month" Relationship="RentFlatModel.FK_PaymentHistory_Month" FromRole="PaymentHistory" ToRole="Month" />
+          <NavigationProperty Name="ServicesRegion" Relationship="RentFlatModel.FK_PaymentHistory_ServicesRegion" FromRole="PaymentHistory" ToRole="ServicesRegion" />
+          <NavigationProperty Name="Year" Relationship="RentFlatModel.FK_PaymentHistory_Year" FromRole="PaymentHistory" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="IdRegions" />
+          </Key>
+          <Property Name="IdRegions" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Warmly" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="House" Relationship="RentFlatModel.FK_House_Regions" FromRole="Regions" ToRole="House" />
+          <NavigationProperty Name="ServicesRegion" Relationship="RentFlatModel.FK_ServicesRegion_Regions" FromRole="Regions" ToRole="ServicesRegion" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="RentFlatModel.FK_User_Role" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="IdServices" />
+          </Key>
+          <Property Name="IdServices" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ServicesRegion" Relationship="RentFlatModel.FK_ServicesRegion_Services" FromRole="Services" ToRole="ServicesRegion" />
+        </EntityType>
+        <EntityType Name="ServicesRegion">
+          <Key>
+            <PropertyRef Name="IdServicesRegion" />
+          </Key>
+          <Property Name="IdServicesRegion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdServices" Type="Int32" Nullable="false" />
+          <Property Name="IdRegions" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Int32" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_Invoicing_ServicesRegion" FromRole="ServicesRegion" ToRole="Invoicing" />
+          <NavigationProperty Name="PaymentHistory" Relationship="RentFlatModel.FK_PaymentHistory_ServicesRegion" FromRole="ServicesRegion" ToRole="PaymentHistory" />
+          <NavigationProperty Name="Regions" Relationship="RentFlatModel.FK_ServicesRegion_Regions" FromRole="ServicesRegion" ToRole="Regions" />
+          <NavigationProperty Name="Services" Relationship="RentFlatModel.FK_ServicesRegion_Services" FromRole="ServicesRegion" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_Invoicing_Status" FromRole="Status" ToRole="Invoicing" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdFlat" Type="Int32" />
+          <Property Name="IdRole" Type="Int32" />
+          <NavigationProperty Name="Flat" Relationship="RentFlatModel.FK_Users_Flat" FromRole="Users" ToRole="Flat" />
+          <NavigationProperty Name="Role" Relationship="RentFlatModel.FK_User_Role" FromRole="Users" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="IdYear" />
+          </Key>
+          <Property Name="IdYear" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumberYear" Type="Int32" />
+          <NavigationProperty Name="Invoicing" Relationship="RentFlatModel.FK_Invoicing_Year" FromRole="Year" ToRole="Invoicing" />
+          <NavigationProperty Name="PaymentHistory" Relationship="RentFlatModel.FK_PaymentHistory_Year" FromRole="Year" ToRole="PaymentHistory" />
+        </EntityType>
+        <Association Name="FK_Flat_House">
+          <End Type="RentFlatModel.House" Role="House" Multiplicity="1" />
+          <End Type="RentFlatModel.Flat" Role="Flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="IdHouse" />
+            </Principal>
+            <Dependent Role="Flat">
+              <PropertyRef Name="IdHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Flat">
+          <End Type="RentFlatModel.Flat" Role="Flat" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Flat">
+          <End Type="RentFlatModel.Flat" Role="Flat" Multiplicity="1" />
+          <End Type="RentFlatModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Flat">
+          <End Type="RentFlatModel.Flat" Role="Flat" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="IdFlat" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdFlat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_Regions">
+          <End Type="RentFlatModel.Regions" Role="Regions" Multiplicity="0..1" />
+          <End Type="RentFlatModel.House" Role="House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="IdRegions" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Month">
+          <End Type="RentFlatModel.Month" Role="Month" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="IdMonth" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_ServicesRegion">
+          <End Type="RentFlatModel.ServicesRegion" Role="ServicesRegion" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicesRegion">
+              <PropertyRef Name="IdServicesRegion" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdServicesRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Status">
+          <End Type="RentFlatModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoicing_Year">
+          <End Type="RentFlatModel.Year" Role="Year" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="Invoicing">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Invoicing">
+          <End Type="RentFlatModel.Invoicing" Role="Invoicing" Multiplicity="1" />
+          <End Type="RentFlatModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoicing">
+              <PropertyRef Name="IdInvoicing" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdInvoicing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Month">
+          <End Type="RentFlatModel.Month" Role="Month" Multiplicity="0..1" />
+          <End Type="RentFlatModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="IdMonth" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_ServicesRegion">
+          <End Type="RentFlatModel.ServicesRegion" Role="ServicesRegion" Multiplicity="1" />
+          <End Type="RentFlatModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicesRegion">
+              <PropertyRef Name="IdServicesRegion" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdServicesRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_Year">
+          <End Type="RentFlatModel.Year" Role="Year" Multiplicity="0..1" />
+          <End Type="RentFlatModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="PaymentHistory">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicesRegion_Regions">
+          <End Type="RentFlatModel.Regions" Role="Regions" Multiplicity="1" />
+          <End Type="RentFlatModel.ServicesRegion" Role="ServicesRegion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="IdRegions" />
+            </Principal>
+            <Dependent Role="ServicesRegion">
+              <PropertyRef Name="IdRegions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Type="RentFlatModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="RentFlatModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicesRegion_Services">
+          <End Type="RentFlatModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="RentFlatModel.ServicesRegion" Role="ServicesRegion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="IdServices" />
+            </Principal>
+            <Dependent Role="ServicesRegion">
+              <PropertyRef Name="IdServices" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RentFlatModelContainer" CdmEntityContainer="RentFlatEntities">
+          <EntitySetMapping Name="Flat">
+            <EntityTypeMapping TypeName="RentFlatModel.Flat">
+              <MappingFragment StoreEntitySet="Flat">
+                <ScalarProperty Name="IdHouse" ColumnName="IdHouse" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Residents" ColumnName="Residents" />
+                <ScalarProperty Name="NumberFlat" ColumnName="NumberFlat" />
+                <ScalarProperty Name="IdFlat" ColumnName="IdFlat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="House">
+            <EntityTypeMapping TypeName="RentFlatModel.House">
+              <MappingFragment StoreEntitySet="House">
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="AreaFlats" ColumnName="AreaFlats" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IdHouse" ColumnName="IdHouse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoicing">
+            <EntityTypeMapping TypeName="RentFlatModel.Invoicing">
+              <MappingFragment StoreEntitySet="Invoicing">
+                <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+                <ScalarProperty Name="IdMonth" ColumnName="IdMonth" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="IdServicesRegion" ColumnName="IdServicesRegion" />
+                <ScalarProperty Name="IdFlat" ColumnName="IdFlat" />
+                <ScalarProperty Name="IdInvoicing" ColumnName="IdInvoicing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Month">
+            <EntityTypeMapping TypeName="RentFlatModel.Month">
+              <MappingFragment StoreEntitySet="Month">
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="IdMonth" ColumnName="IdMonth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentHistory">
+            <EntityTypeMapping TypeName="RentFlatModel.PaymentHistory">
+              <MappingFragment StoreEntitySet="PaymentHistory">
+                <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+                <ScalarProperty Name="IdMonth" ColumnName="IdMonth" />
+                <ScalarProperty Name="IdInvoicing" ColumnName="IdInvoicing" />
+                <ScalarProperty Name="IdServicesRegion" ColumnName="IdServicesRegion" />
+                <ScalarProperty Name="IdFlat" ColumnName="IdFlat" />
+                <ScalarProperty Name="IdPaymentHistory" ColumnName="IdPaymentHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="RentFlatModel.Regions">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Warmly" ColumnName="Warmly" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="IdRegions" ColumnName="IdRegions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="RentFlatModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="RentFlatModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="IdServices" ColumnName="IdServices" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicesRegion">
+            <EntityTypeMapping TypeName="RentFlatModel.ServicesRegion">
+              <MappingFragment StoreEntitySet="ServicesRegion">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="IdRegions" ColumnName="IdRegions" />
+                <ScalarProperty Name="IdServices" ColumnName="IdServices" />
+                <ScalarProperty Name="IdServicesRegion" ColumnName="IdServicesRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="RentFlatModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RentFlatModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="IdFlat" ColumnName="IdFlat" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Year">
+            <EntityTypeMapping TypeName="RentFlatModel.Year">
+              <MappingFragment StoreEntitySet="Year">
+                <ScalarProperty Name="NumberYear" ColumnName="NumberYear" />
+                <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

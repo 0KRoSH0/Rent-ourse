@@ -1,0 +1,30 @@
+﻿<Page x:Class="RentCourseProject.Views.Resident.ResidentPaymentHistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RentCourseProject.Views.Resident"
+      mc:Ignorable="d" 
+      MinHeight="850" MinWidth="1400"
+      MaxHeight="850" MaxWidth="1400"
+      Title="ResidentPaymentHistoryPage">
+
+    <Grid>
+        <TextBlock Text="Услуга" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="200,0,0,0"/>
+        <TextBlock Text="Дата" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="0,0,0,0"/>
+        <TextBlock Text="Квартира" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0,0,200,0"/>
+        <ListView x:Name="ResidentPaymentHistoryListView" Background="Transparent" BorderThickness="0" Margin="0,30,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ServicesRegion.Services.Service}" FontSize="18" Foreground="White" Width="200" Margin="123,0,332,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Month.MonthName}" FontSize="18" Width="200" Foreground="White" Margin="-177,0,0,0" TextAlignment="Right"/>
+                        <TextBlock Text="/" FontSize="18" Width="200" Foreground="White" Margin="-84,0,0,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Year.NumberYear}" FontSize="18" Width="200" Foreground="White" Margin="-165,0,222,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Flat.NumberFlat}" FontSize="18" Width="200" Foreground="White" Margin="0,0,0,0" TextAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -1,0 +1,34 @@
+﻿<Page x:Class="RentCourseProject.Views.Accountant.AccountantReceiptPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RentCourseProject.Views.Accountant"
+      mc:Ignorable="d" 
+      MinHeight="850" MinWidth="1400"
+      MaxHeight="850" MaxWidth="1400"
+      Title="AccountantReceiptPage">
+
+    <Grid>
+        <TextBlock Text="Услуга" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="100,0,0,0"/>
+        <TextBlock Text="Квартира" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="-595,0,0,0"/>
+        <TextBlock Text="Дата" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0,0,720,0"/>
+        <TextBlock Text="Статус" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0,0,440,0"/>
+        <ListView x:Name="ResidentReceiptListView" Background="Transparent" BorderThickness="0" Margin="0,30,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ServicesRegion.Services.Service}" FontSize="18" Foreground="White" Width="200" Margin="23,0,306,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Flat.NumberFlat}" FontSize="18" Foreground="White" Margin="-260,0,0,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Month.MonthName}" FontSize="18" Width="200" Foreground="White" Margin="-90,0,0,0" TextAlignment="Right"/>
+                        <TextBlock Text="/" FontSize="18" Width="200" Foreground="White" Margin="-84,0,0,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Year.NumberYear}" FontSize="18" Width="200" Foreground="White" Margin="-165,0,35,0" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Status.StatusName}" FontSize="18" Width="200" Foreground="White" Margin="0,0,30,0" TextAlignment="Center"/>
+                        <Button x:Name="EditReceiptButton" Click="EditReceiptButtonClick" Content="Редактировать" Style="{StaticResource BackButton}" Width="150" Margin="0,0,20,0"/>
+                        <Button x:Name="DelReceiptButton" Click="DelReceiptButtonClick" Content="Удалить" Style="{StaticResource BackButton}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
