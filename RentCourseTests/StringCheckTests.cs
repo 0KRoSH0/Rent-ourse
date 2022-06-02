@@ -22,7 +22,6 @@ namespace RentCourseTests
         [TestMethod]
         public void LoginCorrect_Correct_Returned()
         {
-            
             //Arrange
             string Login = "Vasya33";
             string pattern = @"([A-Za-z0-9]+)$";
