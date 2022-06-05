@@ -18,8 +18,8 @@ namespace RentCourseProject.Model
         public int IdFlat { get; set; }
         public int IdServicesRegion { get; set; }
         public int IdInvoicing { get; set; }
-        public Nullable<int> IdMonth { get; set; }
-        public Nullable<int> IdYear { get; set; }
+        public int IdMonth { get; set; }
+        public int IdYear { get; set; }
     
         public virtual Flat Flat { get; set; }
         public virtual Invoicing Invoicing { get; set; }

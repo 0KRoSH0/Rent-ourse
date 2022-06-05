@@ -22,12 +22,12 @@ namespace RentCourseProject.Views.Admin
     public partial class AdminPaymentHistoryPage : Page
     {
         Core db = new Core();
-        List<Invoicing> arrayInvoicing;
+        List<PaymentHistory> arrayPaymentHistory;
         public AdminPaymentHistoryPage()
         {
             InitializeComponent();
-            arrayInvoicing = db.context.Invoicing.Where(x => x.IdStatus == 2).ToList();
-            AdminPaymentHistoryListView.ItemsSource = arrayInvoicing;
+            arrayPaymentHistory = db.context.PaymentHistory.Where(x => x.Invoicing.IdStatus == 2).ToList();
+            AdminPaymentHistoryListView.ItemsSource = arrayPaymentHistory;
         }
 
         //Cчитывает элемент и переходит на страницу редактирования

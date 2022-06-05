@@ -23,18 +23,21 @@ namespace RentCourseProject.Views.Admin
     {
         Core db = new Core();
         PaymentHistory currentItem;
-        List<Year> arrayYear;
-        List<Month> arrayMonth;
         public AdminEditPaymentHistoryPage(RentFlatEntities context, PaymentHistory activeItem)
         {
             InitializeComponent();
-            List<Flat> arrayFlat = db.context.Flat.ToList();
-            List<Services> arrayServices = db.context.Services.ToList();
+            List<Flat> arrayFlat;
+            List<Services> arrayServices;
+            List<Year> arrayYear;
+            List<Month> arrayMonth;
 
+
+            arrayFlat = db.context.Flat.ToList();
             FlatComboBox.ItemsSource = arrayFlat;
             FlatComboBox.DisplayMemberPath = "NumberFlat";
             FlatComboBox.SelectedValuePath = "IdFlat";
 
+            arrayServices = db.context.Services.ToList();
             ServicesComboBox.ItemsSource = arrayServices;
             ServicesComboBox.DisplayMemberPath = "Service";
             ServicesComboBox.SelectedValuePath = "IdServices";

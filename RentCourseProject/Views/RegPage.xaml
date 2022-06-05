@@ -13,7 +13,7 @@
         <StackPanel Margin="0,95,0,0">
             <StackPanel>
                 <TextBlock Text="{Binding ElementName=TitleRegPage, Path=Title}" Margin="0,59,0,252" Style="{StaticResource Title}"/>
-                <StackPanel Margin="0,-130,0,0" Orientation="Horizontal" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Margin="0,-150,0,0" Orientation="Horizontal" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel>
                         <TextBlock Text="Логин" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" FontFamily="Ubuntu-Light" Foreground="White"/>
                         <TextBox x:Name="LoginTextBox" Width="300" Height="30" Margin="0,0,0,10" FontSize="20"/>
@@ -25,7 +25,7 @@
                     <StackPanel Margin="70,0,0,0">
                         <TextBlock Text="Телефон" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" FontFamily="Ubuntu-Light" Foreground="White"/>
                         <TextBox x:Name="TelephoneTextBox" Text="" Width="300" Height="30" Margin="0,0,0,10" FontSize="20" />
-                        <TextBlock Text="89012109958" Style="{StaticResource PlaceholderTelephoneTextBlock}" Margin="3,-36,0,0" FontSize="18" IsHitTestVisible="False"/>
+                        <TextBlock Text="89012109958" Style="{StaticResource PlaceholderTelephoneTextBlock}" Margin="4,-36,0,0" FontSize="18" IsHitTestVisible="False"/>
                         <TextBlock Text="Дом" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" FontFamily="Ubuntu-Light" Foreground="White"/>
                         <ComboBox x:Name="HouseComboBox" Width="300" Height="30" Margin="0,0,0,20" FontSize="20" SelectionChanged="HouseComboBoxSelectionChanged"/>
                         <TextBlock Text="Квартира" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Ubuntu-Light" Foreground="White"/>

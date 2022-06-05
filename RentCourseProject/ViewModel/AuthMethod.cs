@@ -41,12 +41,13 @@ namespace RentCourseProject.ViewModel
                 }
                 else
                 {
-                    throw new Exception("Неверный пароль");
+                    MessageBox.Show("Неверный пароль", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return false;
                 }
             }
             else
             {
-                throw new Exception("Такой пользователь отсутствует!");
+                MessageBox.Show("Такой пользователь отсутствует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
         }

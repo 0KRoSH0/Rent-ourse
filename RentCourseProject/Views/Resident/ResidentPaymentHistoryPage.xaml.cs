@@ -22,12 +22,12 @@ namespace RentCourseProject.Views.Resident
     public partial class ResidentPaymentHistoryPage : Page
     {
         Core db = new Core();
-        List<Invoicing> arrayInvoicing;
+        List<PaymentHistory> arrayPaymentHistory;
         public ResidentPaymentHistoryPage()
         {
             InitializeComponent();
-            arrayInvoicing = db.context.Invoicing.Where(x => x.IdStatus == 2).ToList();
-            ResidentPaymentHistoryListView.ItemsSource = arrayInvoicing;
+            arrayPaymentHistory = db.context.PaymentHistory.Where(x => x.Invoicing.IdStatus == 2).ToList();
+            ResidentPaymentHistoryListView.ItemsSource = arrayPaymentHistory;
         }
     }
 }
